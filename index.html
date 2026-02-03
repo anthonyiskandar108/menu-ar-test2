@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AR Menu</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            padding: 20px 24px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .viewer-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .model-card {
+            background: #141414;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 380px;
+            background: #1a1a1a;
+            --poster-color: #1a1a1a;
+        }
+
+        model-viewer::part(default-progress-bar) {
+            background: rgba(255,255,255,0.1);
+            height: 3px;
+        }
+
+        model-viewer::part(default-progress-mask) {
+            background: #fff;
+        }
+
+        .model-info {
+            padding: 20px 24px;
+        }
+
+        .model-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .model-info .description {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .model-info .price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e8c547;
+        }
+
+        .ar-button-container {
+            padding: 0 24px 24px;
+        }
+
+        .ar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .ar-btn:active {
+            transform: scale(0.97);
+            background: #e0e0e0;
+        }
+
+        .ar-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .instructions {
+            padding: 0 16px 32px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .instructions p {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>AR Menu</h1>
+        <p>Lihat makanan dalam 3D & AR</p>
+    </div>
+
+    <div class="viewer-container">
+        <div class="model-card">
+            <model-viewer
+                id="viewer"
+                src="testing2.glb"
+                ios-src="testing2_ios.usdz"
+                alt="Menu Item 3D"
+                auto-rotate
+                auto-rotate-delay="0"
+                rotation-per-second="20deg"
+                camera-controls
+                touch-action="pan-y"
+                min-camera-orbit="auto auto 2m"
+                max-camera-orbit="auto 90deg 6m"
+                camera-orbit="0deg 60deg 4m"
+                min-field-of-view="20deg"
+                max-field-of-view="45deg"
+                field-of-view="30deg"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                ar-scale="fixed"
+                shadow-intensity="0.4"
+                shadow-softness="0.8"
+                exposure="1.1"
+                loading="eager"
+                poster=""
+            >
+                <button slot="ar-button" class="ar-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    Lihat di Meja Anda
+                </button>
+            </model-viewer>
+
+            <div class="model-info">
+                <h2>Nasi Campur</h2>
+                <p class="description">Nasi dengan lauk lengkap pilihan chef</p>
+                <span class="price">Rp 35.000</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <p>Geser untuk memutar · Pinch untuk zoom<br>Tekan tombol AR untuk melihat di meja anda</p>
+    </div>
+
+</body>
+</html>
